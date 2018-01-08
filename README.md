@@ -2,6 +2,9 @@
 ## What it does:
 Beautifies the lacking unofficial UBC transcript with extra information and better formatting.
 
+### Siang's Modification
+The API server [ubc-api.herokuapp.com](https://ubc-api.herokuapp.com) appears to be down. This is a quickfix to use the data/sources.json file for the course names.
+
 ## How it does this:
 It does this in several ways:
 1. Adding a course names columns
