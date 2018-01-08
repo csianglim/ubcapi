@@ -1,14 +1,3 @@
-/**
- * Calculate a 32 bit FNV-1a hash
- * Found here: https://gist.github.com/vaiorabbit/5657561
- * Ref.: http://isthe.com/chongo/tech/comp/fnv/
- *
- * @param {string} message the input value
- * @param {boolean} [asString=false] set to true to return the hash value as 
- *     8-digit hex string instead of an integer
- * @param {integer} [seed] optionally pass the hash of the previous chunk
- * @returns {integer | string}
- */
 function hashFnv32a(message: string, seed = 0x811c9dc5): string {
     let hval = seed;
     for (let i = 0, l = message.length; i < l; i++) {
@@ -160,33 +149,14 @@ queryString += `${VERSION_KEY}=${VERSION}&`
 const digest = hashFnv32a(courseList.join());
 queryString += `${DIGEST_KEY}=${digest}`;
 
-const coursesPath = '/courses'
-const completeURL = API_URL + coursesPath + '?' + queryString;
+const completeURL = 'https://raw.githubusercontent.com/csianglim/ubcapi/master/data/courses.json'
 
-fetch(completeURL, {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-    },
-    mode: 'cors',
-})
+fetch(completeURL)
     .then((response: Response) => {
         return response.json()
     })
-    .catch((reason: string) => {
-        console.log(reason);
-    })
     .then((courseMap: CourseMap) => {
-        if (courseMap[VERSION_KEY] !== VERSION) {
-            alert(`
-        You do not have the latest version of the bookmarklet which means it may not
-        work properly or you may be missing new features.\n
-        Get the latest version from:\n${SOURCE_URL}\n\n
-        Version: ${VERSION}\tNewest Version: ${courseMap[VERSION_KEY]}
-        `);
-        }
-
+        console.log(courseList)
         courseList.forEach((courseCode: string) => {
             const cellCourseName = <HTMLTableCellElement>iframe.getElementById(courseCode);
             cellCourseName.contentEditable = 'true';

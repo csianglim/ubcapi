@@ -19,7 +19,7 @@ dao_wrapper = models.DAOWrapper(
 pattern_course = re.compile(r'c\d+')
 
 API_STATUS = 'ONLINE'
-API_URL = 'https://ubc-api.herokuapp.com'
+API_URL = 'https://raw.githubusercontent.com/csianglim/ubcapi/master/data/courses.json'
 
 VERSION = '1.2'
 VERSION_KEY = 'version_key'
